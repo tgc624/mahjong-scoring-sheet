@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { Fab } from "../components/CommonFab";
 import { Rules } from "../components/ScoreSheetPageRules";
 import { Game, Player, Players, useScoreSheetTable } from "../utils/util";
 
@@ -89,6 +90,10 @@ export const ScoreSheetPage = () => {
     <div>
       <ScoreSheet players={players} games={games} />
       <Rules />
+      <Fab text="招待する" left={16} outline bottom={16 + 40 + 16} />
+      <Fab text="使い方" left={16} outline bottom={16} />
+      <Fab text="$" circle outline right={16} bottom={16 + 56 + 16} />
+      <Fab text="+" circle right={16} bottom={16} />
     </div>
   );
 };
