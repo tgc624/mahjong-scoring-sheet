@@ -1,32 +1,55 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { callbackify } from "util";
 
 type Player = { uid: string; name: string };
+type Players = [Player, Player, Player, Player];
 type Game = {
   id: string;
   scores: { uid: string; score: number }[];
   cratedAt: number;
 };
-const ScoreSheet = ({
-  players,
-}: {
-  players: [Player, Player, Player, Player];
-}) => {
+
+const useScoreSheetTable = (
+  players: Players,
+  games: Game[]
+): [
+  [string, string, string, string],
+  [number, number, number, number],
+  [number, number, number, number][]
+] => {
+  const sortedUids = players.map((player) => player.uid).sort();
+
+  const sortedPlayerNames = ((playerDict) =>
+    sortedUids.map((uid) => playerDict[uid]))(
+    Object.fromEntries(players.map(({ uid, name }) => [uid, name]))
+  ) as [string, string, string, string];
+
+  const totalScores = [0, 0, 0, 0] as [number, number, number, number];
+
+  const scoresRows = [] as [number, number, number, number][];
+
+  return [sortedPlayerNames, totalScores, scoresRows];
+};
+
+const ScoreSheet = ({ players }: { players: Players }) => {
+  const [playerNames, totalScores, scoresRows] = useScoreSheetTable(
+    players,
+    []
+  );
   return (
     <table>
       <thead>
         <tr>
           <th></th>
-          {players.map((player) => (
+          {playerNames.map((name, index) => (
             <th
-              key={player.uid}
+              key={index}
               style={{
                 textAlign: "center",
-                width: `calc(100% / ${players.length})`,
+                width: `calc(100% / ${playerNames.length})`,
               }}
             >
-              {player.name}
+              {name}
             </th>
           ))}
         </tr>
@@ -34,10 +57,16 @@ const ScoreSheet = ({
       <tbody>
         <tr>
           <td>Σ</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          {totalScores.map((totalScore, index) => (
+            <td
+              key={index}
+              style={{
+                textAlign: "center",
+              }}
+            >
+              {totalScore}
+            </td>
+          ))}
         </tr>
       </tbody>
     </table>
