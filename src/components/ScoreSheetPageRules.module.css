@@ -1,0 +1,7 @@
+.rules {
+  background: var(--nc-bg-2);
+}
+
+.rules li {
+  font-size: small;
+}

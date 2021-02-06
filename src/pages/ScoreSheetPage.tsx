@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { Rules } from "../components/ScoreSheetPageRules";
 import { Game, Player, Players, useScoreSheetTable } from "../utils/util";
 
 const ScoreSheetScoreTd = ({ score }: { score: number }) => {
@@ -87,6 +88,7 @@ export const ScoreSheetPage = () => {
   return (
     <div>
       <ScoreSheet players={players} games={games} />
+      <Rules />
     </div>
   );
 };
