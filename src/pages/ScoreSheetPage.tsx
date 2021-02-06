@@ -1,35 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-
-type Player = { uid: string; name: string };
-type Players = [Player, Player, Player, Player];
-type Game = {
-  id: string;
-  scores: { uid: string; score: number }[];
-  cratedAt: number;
-};
-
-const useScoreSheetTable = (
-  players: Players,
-  games: Game[]
-): [
-  [string, string, string, string],
-  [number, number, number, number],
-  [number, number, number, number][]
-] => {
-  const sortedUids = players.map((player) => player.uid).sort();
-
-  const sortedPlayerNames = ((playerDict) =>
-    sortedUids.map((uid) => playerDict[uid]))(
-    Object.fromEntries(players.map(({ uid, name }) => [uid, name]))
-  ) as [string, string, string, string];
-
-  const totalScores = [0, 0, 0, 0] as [number, number, number, number];
-
-  const scoresRows = [] as [number, number, number, number][];
-
-  return [sortedPlayerNames, totalScores, scoresRows];
-};
+import { Game, Player, Players, useScoreSheetTable } from "../utils/util";
 
 const ScoreSheet = ({ players }: { players: Players }) => {
   const [playerNames, totalScores, scoresRows] = useScoreSheetTable(
@@ -75,6 +46,7 @@ const ScoreSheet = ({ players }: { players: Players }) => {
 
 export const ScoreSheetPage = () => {
   const { sheetId } = useParams<{ sheetId: string }>();
+  const games: Game[] = [];
   const players: [Player, Player, Player, Player] = [
     { uid: "a", name: "佐藤" },
     { uid: "b", name: "鈴木" },
