@@ -2,6 +2,19 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { Game, Player, Players, useScoreSheetTable } from "../utils/util";
 
+const ScoreSheetScoreTd = ({ score }: { score: number }) => {
+  const scoreString = score.toLocaleString();
+  return (
+    <td
+      style={{
+        textAlign: "center",
+      }}
+    >
+      {scoreString}
+    </td>
+  );
+};
+
 const ScoreSheet = ({
   players,
   games,
@@ -35,29 +48,14 @@ const ScoreSheet = ({
         <tr>
           <td>Σ</td>
           {totalScores.map((totalScore, index) => (
-            <td
-              key={index}
-              style={{
-                textAlign: "center",
-              }}
-            >
-              {totalScore}
-            </td>
+            <ScoreSheetScoreTd key={index} score={totalScore} />
           ))}
         </tr>
         {scoresRows.map((scores, rowIndex) => (
           <tr key={rowIndex}>
             <td>{rowIndex + 1}</td>
             {scores.map((score, colIndex) => (
-              <td
-                key={colIndex}
-                style={{
-                  textAlign: "center",
-                  width: `calc(100% / ${playerNames.length})`,
-                }}
-              >
-                {score}
-              </td>
+              <ScoreSheetScoreTd key={colIndex} score={score} />
             ))}
           </tr>
         ))}
