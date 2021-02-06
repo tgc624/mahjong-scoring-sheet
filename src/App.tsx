@@ -3,7 +3,15 @@ import { ScoreSheetPage } from "./pages/ScoreSheetPage";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 const TopPage = () => <div>top page</div>;
-const NotFoundPage = () => <div>404</div>;
+const NotFoundPage = () => (
+  <div style={{ margin: 16 }}>
+    <h2>Page not found</h2>
+    <p>Sorry, the requested page could not be found.</p>
+    <p>
+      <a href="/top">Go back to the top page</a>
+    </p>
+  </div>
+);
 
 function App() {
   return (
