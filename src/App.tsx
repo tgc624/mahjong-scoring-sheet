@@ -8,6 +8,7 @@ const NotFoundPage = () => <div>404</div>;
 function App() {
   return (
     <BrowserRouter>
+      <h1 style={{ textAlign: "center" }}>麻雀スコアシート</h1>
       <Switch>
         <Route path="/sheets/:sheetId" component={ScoreSheetPage} />
         <Route path="/top" component={TopPage} />
