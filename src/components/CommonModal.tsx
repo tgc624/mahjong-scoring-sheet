@@ -26,7 +26,7 @@ export const Modal = (props: {
         event.target?.localName === "dialog" && props.toggleOpen();
       }}
     >
-      {props.children}
+      <div style={{ width: "100%", height: "100%" }}>{props.children}</div>
     </dialog>
   );
   useEffect(() => {
