@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import styles from "./CommonModal.module.css";
 
 type DialogClickEvent = React.MouseEvent<HTMLDialogElement, MouseEvent> & {
   target: { localName: string };
@@ -14,13 +15,8 @@ export const Modal = (props: {
     <dialog
       // @ts-ignore
       ref={ref}
-      style={{
-        margin: "auto",
-        // padding: 0,
-        border: 0,
-        height: "80vh",
-        width: "80vw",
-      }}
+      style={{ margin: "auto" }}
+      className={styles.dialog}
       onClick={(event: DialogClickEvent) => {
         event.persist();
         event.target?.localName === "dialog" && props.toggleOpen();

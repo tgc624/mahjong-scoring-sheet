@@ -103,7 +103,23 @@ export const ScoreSheetPage = () => {
           modals.addModal.toggle((b) => !b);
         }}
       >
-        <div>modal</div>
+        <div style={{ padding: 8 }}>
+          <h1>スコアを登録</h1>
+          <p>精算前の点数を入力してください</p>
+          {players.map((player) => {
+            return (
+              <fieldset key={player.uid} style={{ border: 0, padding: 0 }}>
+                <legend>{player.name}</legend>
+                <input
+                  type="number"
+                  style={{ fontSize: "large", width: "100%" }}
+                ></input>
+              </fieldset>
+            );
+          })}
+          <p>供託点棒: {0}</p>
+          <button>次へ</button>
+        </div>
       </Modal>
       <Fab text="招待する" left={16} outline bottom={16 + 40 + 16} />
       <Fab text="使い方" left={16} outline bottom={16} />

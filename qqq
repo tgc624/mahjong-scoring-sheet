@@ -1,0 +1,69 @@
+[1mdiff --git a/src/components/CommonModal.tsx b/src/components/CommonModal.tsx[m
+[1mindex d9a1317..e14a922 100644[m
+[1m--- a/src/components/CommonModal.tsx[m
+[1m+++ b/src/components/CommonModal.tsx[m
+[36m@@ -1,4 +1,5 @@[m
+ import React, { useEffect, useRef } from "react";[m
+[32m+[m[32mimport styles from "./CommonModal.module.css";[m[41m[m
+ [m
+ type DialogClickEvent = React.MouseEvent<HTMLDialogElement, MouseEvent> & {[m
+   target: { localName: string };[m
+[36m@@ -14,19 +15,21 @@[m [mexport const Modal = (props: {[m
+     <dialog[m
+       // @ts-ignore[m
+       ref={ref}[m
+[31m-      style={{[m
+[31m-        margin: "auto",[m
+[31m-        // padding: 0,[m
+[31m-        border: 0,[m
+[31m-        height: "80vh",[m
+[31m-        width: "80vw",[m
+[31m-      }}[m
+[32m+[m[32m      style={{ margin: "auto" }}[m[41m[m
+[32m+[m[32m      className={styles.dialog}[m[41m[m
+       onClick={(event: DialogClickEvent) => {[m
+         event.persist();[m
+         event.target?.localName === "dialog" && props.toggleOpen();[m
+       }}[m
+     >[m
+[31m-      <div style={{ width: "100%", height: "100%" }}>{props.children}</div>[m
+[32m+[m[32m      <div[m[41m[m
+[32m+[m[32m        style={{[m[41m[m
+[32m+[m[32m          width: "100%",[m[41m[m
+[32m+[m[32m          height: "100%",[m[41m[m
+[32m+[m[32m        }}[m[41m[m
+[32m+[m[32m      >[m[41m[m
+[32m+[m[32m        {props.children}[m[41m[m
+[32m+[m[32m      </div>[m[41m[m
+     </dialog>[m
+   );[m
+   useEffect(() => {[m
+[1mdiff --git a/src/pages/ScoreSheetPage.tsx b/src/pages/ScoreSheetPage.tsx[m
+[1mindex 7cef5c9..994e90a 100644[m
+[1m--- a/src/pages/ScoreSheetPage.tsx[m
+[1m+++ b/src/pages/ScoreSheetPage.tsx[m
+[36m@@ -103,7 +103,23 @@[m [mexport const ScoreSheetPage = () => {[m
+           modals.addModal.toggle((b) => !b);[m
+         }}[m
+       >[m
+[31m-        <div>modal</div>[m
+[32m+[m[32m        <div style={{ padding: 8 }}>[m[41m[m
+[32m+[m[32m          <h1>スコアを登録</h1>[m[41m[m
+[32m+[m[32m          <p>精算前の点数を入力してください</p>[m[41m[m
+[32m+[m[32m          {players.map((player) => {[m[41m[m
+[32m+[m[32m            return ([m[41m[m
+[32m+[m[32m              <fieldset key={player.uid} style={{ border: 0, padding: 0 }}>[m[41m[m
+[32m+[m[32m                <legend>{player.name}</legend>[m[41m[m
+[32m+[m[32m                <input[m[41m[m
+[32m+[m[32m                  type="number"[m[41m[m
+[32m+[m[32m                  style={{ fontSize: "large", width: "100%" }}[m[41m[m
+[32m+[m[32m                ></input>[m[41m[m
+[32m+[m[32m              </fieldset>[m[41m[m
+[32m+[m[32m            );[m[41m[m
+[32m+[m[32m          })}[m[41m[m
+[32m+[m[32m          <p>供託点棒: {0}</p>[m[41m[m
+[32m+[m[32m          <button>次へ</button>[m[41m[m
+[32m+[m[32m        </div>[m[41m[m
+       </Modal>[m
+       <Fab text="招待する" left={16} outline bottom={16 + 40 + 16} />[m
+       <Fab text="使い方" left={16} outline bottom={16} />[m
