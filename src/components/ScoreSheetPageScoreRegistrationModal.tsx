@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Modal } from "../components/CommonModal";
 import { Player } from "../utils/util";
 
@@ -11,6 +11,17 @@ export const ScoreRegistrationModal = ({
   toggleOpen: () => void;
   players: [Player, Player, Player, Player];
 }) => {
+  const [scoreByUser, setScoreByUser] = useState(
+    Object.fromEntries(players.map(({ uid }) => [uid, "0"])) as {
+      [uid: string]: string;
+    }
+  );
+  const remainingPoint = useMemo(() => {
+    const totalScore = players
+      .map(({ uid }) => parseInt(scoreByUser[uid]))
+      .reduce((acc, cur) => acc + cur);
+    return 100 * 1000 - totalScore; // 4人の開始時の合計点から、最終結果のスコアを引く
+  }, [players, scoreByUser]);
   return (
     <Modal open={isOpen} toggleOpen={toggleOpen}>
       <div style={{ padding: 8 }}>
@@ -22,12 +33,21 @@ export const ScoreRegistrationModal = ({
               <legend>{player.name}</legend>
               <input
                 type="number"
-                style={{ fontSize: "large", width: "100%" }}
+                style={{ fontSize: "large", textAlign: "right", width: "100%" }}
+                value={scoreByUser[player.uid]}
+                onChange={(event) => {
+                  event.preventDefault();
+                  const newValue = event.target.value;
+                  setScoreByUser((currentDict) => ({
+                    ...currentDict,
+                    [player.uid]: newValue,
+                  }));
+                }}
               ></input>
             </fieldset>
           );
         })}
-        <p>供託点棒: {0}</p>
+        <p>供託点棒: {remainingPoint.toLocaleString()}</p>
         <button>次へ</button>
       </div>
     </Modal>
