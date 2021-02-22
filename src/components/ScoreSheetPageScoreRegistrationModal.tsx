@@ -48,7 +48,9 @@ export const ScoreRegistrationModal = ({
           );
         })}
         <p>供託点棒: {remainingPoint.toLocaleString()}</p>
-        <button>次へ</button>
+        <button disabled={remainingPoint < 0} style={{ color: "black" }}>
+          次へ
+        </button>
       </div>
     </Modal>
   );
