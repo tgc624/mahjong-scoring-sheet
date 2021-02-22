@@ -4,6 +4,7 @@ import { Modal } from "../components/CommonModal";
 import { Fab } from "../components/CommonFab";
 import { Rules } from "../components/ScoreSheetPageRules";
 import { Game, Player, Players, useScoreSheetTable } from "../utils/util";
+import { ScoreRegistrationModal } from "../components/ScoreSheetPageScoreRegistrationModal";
 
 const ScoreSheetScoreTd = ({ score }: { score: number }) => {
   const scoreString = score.toLocaleString();
@@ -89,30 +90,13 @@ export const ScoreSheetPage = () => {
     <div>
       <ScoreSheet players={players} games={games} />
       <Rules />
-      <Modal
-        open={modals.addModal.status}
+      <ScoreRegistrationModal
+        isOpen={modals.addModal.status}
         toggleOpen={() => {
           modals.addModal.toggle((b) => !b);
         }}
-      >
-        <div style={{ padding: 8 }}>
-          <h1>スコアを登録</h1>
-          <p>精算前の点数を入力してください</p>
-          {players.map((player) => {
-            return (
-              <fieldset key={player.uid} style={{ border: 0, padding: 0 }}>
-                <legend>{player.name}</legend>
-                <input
-                  type="number"
-                  style={{ fontSize: "large", width: "100%" }}
-                ></input>
-              </fieldset>
-            );
-          })}
-          <p>供託点棒: {0}</p>
-          <button>次へ</button>
-        </div>
-      </Modal>
+        players={players}
+      />
       <Fab text="招待する" left={16} outline bottom={16 + 40 + 16} />
       <Fab text="使い方" left={16} outline bottom={16} />
       <Fab text="$" circle outline right={16} bottom={16 + 56 + 16} />
