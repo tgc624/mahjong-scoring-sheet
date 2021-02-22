@@ -7,15 +7,7 @@ import { Game, Player, Players, useScoreSheetTable } from "../utils/util";
 
 const ScoreSheetScoreTd = ({ score }: { score: number }) => {
   const scoreString = score.toLocaleString();
-  return (
-    <td
-      style={{
-        textAlign: "center",
-      }}
-    >
-      {scoreString}
-    </td>
-  );
+  return <td style={{ textAlign: "center" }}>{scoreString}</td>;
 };
 
 const ScoreSheet = ({
